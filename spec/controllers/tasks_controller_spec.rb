@@ -2,13 +2,13 @@ require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
   describe "GET index" do
-    it "assigns @tasks" do
+    it "assigns @tasks and order by create time" do
       task1 = Task.create(name: "123", content: "456")
       task2 = Task.create(name: "789", content: "888")
 
       get :index
 
-      expect(assigns[:tasks]).to eq([task1, task2])
+      expect(assigns[:tasks]).to eq([task2, task1])
     end
 
     it "render page index" do
