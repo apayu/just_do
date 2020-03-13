@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe TasksController, type: :controller do
   describe "GET index" do
     it "assigns @tasks and order by create time" do
-      task1 = Task.create(name: "123", content: "456")
-      task2 = Task.create(name: "789", content: "888")
+      task1 = create(:task)
+      task2 = create(:task)
 
       get :index
 
@@ -21,7 +21,7 @@ RSpec.describe TasksController, type: :controller do
 
   describe "GET new" do
     it "assigns new @task" do
-      task = Task.new
+      task = build(:task)
 
       get :new
 
@@ -37,14 +37,16 @@ RSpec.describe TasksController, type: :controller do
 
   describe "Post create" do
     it "create new task" do
+      task = create(:task)
 
       expect do
-        post :create, params: { :task => {name: "sss", content: "678" }}
+        post :create, params: { :task => attributes_for(:task)}
       end.to change{ Task.count }.by(1)
     end
 
     it "if success redirect to tasks_path" do
-      post :create, params: { :task => {name: "sss", content: "678" }}
+      task = create(:task)
+      post :create, params: { :task => attributes_for(:task)}
       expect(response).to redirect_to tasks_path
     end
 
@@ -54,31 +56,28 @@ RSpec.describe TasksController, type: :controller do
 
   describe "GET edit" do
     it "find and assigns @task" do
-      task = Task.create(name: "ggg", content: "sss")
-
+      task = create(:task)
       get :edit, params: { :id => task.id }
-
       expect(assigns[:task]).to eq(task)
     end
 
     it "render page edit" do
-      task = Task.create(name: "ggg", content: "sss")
+      task = create(:task)
       get :edit, params: { :id => task.id }
-
       expect(response).to render_template("edit")
     end
   end
 
-  describe "Put create" do
+  describe "Put update" do
     it "update task" do
-      task = Task.create(name: "123", content: "456")
+      task = create(:task)
       put :update, params: { id: task.id, task: { name: "321", content: "789"}}
       expect(assigns[:task].name).to eq("321")
       expect(assigns[:task].content).to eq("789")
     end
 
     it "redirect to index" do
-      task = Task.create(name: "123", content: "456")
+      task = create(:task)
       put :update, params: { id: task.id, task: { name: "321", content: "789"}}
       expect(response).to redirect_to tasks_path
     end
@@ -86,12 +85,12 @@ RSpec.describe TasksController, type: :controller do
 
   describe "Delete destory" do
     it "delete a record" do
-      task = Task.create(name: "8787", content: "9999")
+      task = create(:task)
       expect { delete :destroy, params: { id: task.id }}.to change { Task.count }.by(-1)
     end
 
     it "redirect to index" do
-      task = Task.create(name: "8787", content: "9999")
+      task = create(:task)
       delete :destroy, params: { id: task.id }
       expect(response).to redirect_to tasks_path
     end
