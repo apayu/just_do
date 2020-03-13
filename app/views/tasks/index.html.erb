@@ -6,3 +6,4 @@
   </div>
   <span><%= link_to "修改", edit_task_path(t) %><%= link_to "刪除", task_path(t), method: "delete", data: { confirm: "確定刪除?"} %></span>
 <% end %>
+<%= flash[:notice] %>
