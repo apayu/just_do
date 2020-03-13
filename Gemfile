@@ -36,6 +36,7 @@ group :development, :test do
   gem 'rails-controller-testing', '~> 1.0.1'
   gem "shoulda-matchers"
   gem "factory_bot_rails"
+  gem "faker"
 end
 
 group :development do
