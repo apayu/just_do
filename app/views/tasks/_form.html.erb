@@ -1,0 +1,8 @@
+<%= form_for(task) do |f| %>
+  <%= f.label :name, "任務名稱" %>
+  <%= f.text_field :name %>
+  <%= f.label :content, "任務內容" %>
+  <%= f.text_field :content %>
+  <%= f.submit "送出" %>
+<% end %>
+<%= link_to "返回", tasks_path %>
