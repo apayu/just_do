@@ -2,11 +2,13 @@
 
 # What is this?
 
-## Just do
+this is *just do*
 
 a manage task tool
 
-help you better and remeber...just do it
+you know people always think and no want to do it
+
+this help you better and remeber...just do it
 
 # How to deploy?
 
@@ -24,10 +26,10 @@ clone this repositroy, and you can use [heroku](https://heroku.com/ "heroku"), i
 
     git push heroku master
 
-5.if first deploy, remember run rails db:migrate, and don't use SQLite, because heroku doesn't support.
+5.if first time deploy, remember run rails db:migrate, and don't use SQLite, because heroku doesn't support.
 
     heroku run rails db:migrate
 
-6.Verifying deploy.... done. if you see this message
+6.Verifying deploy.... done. if you see this message, congratulation!
 
 enjoy:)
