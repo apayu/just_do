@@ -1,4 +1,8 @@
 zh-TW:
+  activerecord:
+    attributes:
+      task:
+        name: "任務名稱"
   create_success: 新增成功
   delete_success: 刪除成功
   edit_success: 修改成功

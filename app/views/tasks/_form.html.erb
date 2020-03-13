@@ -5,4 +5,11 @@
   <%= f.text_field :content %>
   <%= f.submit "送出" %>
 <% end %>
+<% if task.errors.any? %>
+  <% task.errors.full_messages.each do |msg| %>
+    <div>
+      <%= msg %>
+    </div>
+  <% end %>
+<% end %>
 <%= link_to "返回", tasks_path %>
