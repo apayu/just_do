@@ -4,11 +4,12 @@ class TasksController < ApplicationController
   def index
     @order_by = params["order_by"] || :created_at
     @order_time = params["order_time"] || :created_at
+    @state = params["state"] || "pending"
 
     unless params["q"].nil?
-      @tasks = Task.order_task(@order_by, @order_time).ransack(name_cont: params[:q], content_cont: params[:q], m: "or").result
+      @tasks = Task.order_task(@order_by, @order_time).ransack(name_cont: params[:q], state_eq: @state).result
     else
-      @tasks = Task.order_task(@order_by, @order_time)
+      @tasks = Task.order_task(@order_by, @order_time).ransack(state_eq: @state).result
     end
   end
 
