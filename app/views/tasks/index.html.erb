@@ -4,12 +4,13 @@
   <%= select_tag(:order_time, options_for_select([['最新', "desc"], ['最舊', "asc"]], @order_time)) %>
   <%= submit_tag("排序") %>
 <% end %>
-<% @tasks.each do |t| %>
+<% @tasks.each do |task| %>
   <div>
-    <%= t.name %>
-    <%= t.content %>
-    <%= t.finish_time %>
+    <%= task.name %>
+    <%= task.content %>
+    <%= task.finish_time %>
+    <%= I18n.t(task.state) %>
   </div>
-  <span><%= link_to "修改", edit_task_path(t) %><%= link_to "刪除", task_path(t), method: "delete", data: { confirm: "確定刪除?"} %></span>
+  <span><%= link_to "修改", edit_task_path(task) %><%= link_to "刪除", task_path(task), method: "delete", data: { confirm: "確定刪除?"} %></span>
 <% end %>
 <%= flash[:notice] %>

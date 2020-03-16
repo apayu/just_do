@@ -5,6 +5,8 @@
   <%= f.text_field :content %>
   <%= f.label :finish_time, "任務結束時間" %>
   <%= f.text_field :finish_time %>
+  <%= f.label :state, "狀態" %>
+  <%= f.select :state, [["待處理", "pending"], ["進行中", "processing"], ["完成", "finish"]] %>
   <%= f.submit "送出" %>
 <% end %>
 <% if task.errors.any? %>
