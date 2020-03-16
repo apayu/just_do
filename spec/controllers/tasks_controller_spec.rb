@@ -2,6 +2,32 @@ require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
   describe "GET index" do
+    context "search" do
+      context "by name" do
+        it "assigns @tasks" do
+          task1 = create(:task)
+          task2 = create(:task)
+
+          get :index, params: { q: task2.name }
+
+          expect(assigns[:tasks].first.name).to eq(task2.name)
+        end
+      end
+
+      context "by state" do
+        it "assigns @tasks" do
+          task1 = create(:task)
+          task2 = create(:task)
+
+          task2.update(state: "finish")
+
+          get :index, params: { state: "finish" }
+
+          expect(assigns[:tasks].first.name).to eq(task2.name)
+        end
+      end
+    end
+
     context "order by created_at" do
       context "order by desc" do
         it "assigns @tasks" do
@@ -24,6 +50,7 @@ RSpec.describe TasksController, type: :controller do
         end
       end
     end
+
     context "order by finish_time" do
       context "order by desc" do
         it "assigns @tasks" do
@@ -50,7 +77,6 @@ RSpec.describe TasksController, type: :controller do
     end
 
     it "render page index" do
-
       get :index
 
       expect(response).to render_template("index")
