@@ -2,7 +2,7 @@
 <%= form_tag("/", method: "get") do %>
   <%= select_tag(:order_by, options_for_select([["任務建立時間", "created_at"], ["任務結束時間", "finish_time"]], @order_by)) %>
   <%= select_tag(:order_time, options_for_select([["最新", "desc"], ["最舊", "asc"]], @order_time)) %>
-  <%= select_tag(:state, options_for_select([["待處理", "pending"], ["進行中", "processing"], ["完成","done"]], @state)) %>
+  <%= select_tag(:state, options_for_select([["待處理", "pending"], ["進行中", "processing"], ["完成","finish"]], @state)) %>
   <%= label_tag(:q, "關鍵字:") %>
   <%= text_field_tag(:q) %>
   <%= submit_tag("尋找") %>
