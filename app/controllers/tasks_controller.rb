@@ -2,7 +2,12 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:edit, :update, :destroy]
 
   def index
-    @tasks = Task.order("created_at DESC")
+    @order_by = params["order_by"] || :created_at
+    @order_time = params["order_time"] || :created_at
+    @state = params["state"] || "pending"
+    @q = params["q"] || ""
+
+    @tasks = Task.order_task(@order_by, @order_time).ransack(name_cont: @q, state_eq: @state).result
   end
 
   def new
@@ -42,7 +47,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :content, :finish_time)
+    params.require(:task).permit(:name, :content, :finish_time, :state)
   end
 end
 
