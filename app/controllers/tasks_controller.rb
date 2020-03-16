@@ -2,41 +2,14 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:edit, :update, :destroy]
 
   def index
-    if params["order_by"].nil? & params["order_time"].nil?
-      @tasks = Task.order("created_at DESC")
-    else
-      if params["order_by"] == "created_at"
-        if params["order_time"] == "desc"
-          @tasks = Task.order("created_at DESC")
-          @order_by = "created_at"
-          @order_time = "desc"
-        else
-          @tasks = Task.order("created_at ASC")
-          @order_by = "created_at"
-          @order_time = "asc"
-        end
-      else
-        if params["order_time"] == "desc"
-          @tasks = Task.order("finish_time DESC")
-          @order_by = "finish_time"
-          @order_time = "desc"
-        else
-          @tasks = Task.order("finish_time ASC")
-          @order_by = "finish_time"
-          @order_time = "asc"
-        end
-      end
-    end
-  end
+    @order_by = params["order_by"] || :created_at
+    @order_time = params["order_time"] || :created_at
 
-  def oerder
-    if params["order"] == "desc"
-      @tasks = Task.order("created_at desc")
+    unless params["q"].nil?
+      @tasks = Task.order_task(@order_by, @order_time).ransack(name_cont: params[:q], content_cont: params[:q], m: "or").result
     else
-      @tasks = Task.order("created_at asc")
+      @tasks = Task.order_task(@order_by, @order_time)
     end
-
-    render "index"
   end
 
   def new

@@ -2,7 +2,9 @@
 <%= form_tag("/", method: "get") do %>
   <%= select_tag(:order_by, options_for_select([['任務建立時間', "created_at"], ['任務結束時間', "finish_time"]], @order_by)) %>
   <%= select_tag(:order_time, options_for_select([['最新', "desc"], ['最舊', "asc"]], @order_time)) %>
-  <%= submit_tag("排序") %>
+  <%= label_tag(:q, "關鍵字:") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("尋找") %>
 <% end %>
 <% @tasks.each do |task| %>
   <div>
