@@ -2,13 +2,51 @@ require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
   describe "GET index" do
-    it "assigns @tasks and order by create time" do
-      task1 = create(:task)
-      task2 = create(:task)
+    context "order by created_at" do
+      context "order by desc" do
+        it "assigns @tasks" do
+          task1 = create(:task)
+          task2 = create(:task)
 
-      get :index
+          get :index, params: { order_by: "created_at", order_time: "desc" }
 
-      expect(assigns[:tasks]).to eq([task2, task1])
+          expect(assigns[:tasks]).to eq([task2, task1])
+        end
+      end
+      context "order by asc" do
+        it "assigns @tasks" do
+          task1 = create(:task)
+          task2 = create(:task)
+
+          get :index, params: { order_by: "created_at", order_time: "asc" }
+
+          expect(assigns[:tasks]).to eq([task1, task2])
+        end
+      end
+    end
+    context "order by finish_time" do
+      context "order by desc" do
+        it "assigns @tasks" do
+          task1 = create(:task)
+          task2 = create(:task)
+          task2.update(finish_time: DateTime.now)
+
+          get :index, params: { order_by: "finish_time", order_time: "desc" }
+
+          expect(assigns[:tasks]).to eq([task2, task1])
+        end
+      end
+      context "order by asc" do
+        it "assigns @tasks" do
+          task1 = create(:task)
+          task2 = create(:task)
+          task2.update(finish_time: DateTime.now)
+
+          get :index, params: { order_by: "finish_time", order_time: "asc" }
+
+          expect(assigns[:tasks]).to eq([task1, task2])
+        end
+      end
     end
 
     it "render page index" do

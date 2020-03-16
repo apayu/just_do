@@ -2,7 +2,41 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:edit, :update, :destroy]
 
   def index
-    @tasks = Task.order("created_at DESC")
+    if params["order_by"].nil? & params["order_time"].nil?
+      @tasks = Task.order("created_at DESC")
+    else
+      if params["order_by"] == "created_at"
+        if params["order_time"] == "desc"
+          @tasks = Task.order("created_at DESC")
+          @order_by = "created_at"
+          @order_time = "desc"
+        else
+          @tasks = Task.order("created_at ASC")
+          @order_by = "created_at"
+          @order_time = "asc"
+        end
+      else
+        if params["order_time"] == "desc"
+          @tasks = Task.order("finish_time DESC")
+          @order_by = "finish_time"
+          @order_time = "desc"
+        else
+          @tasks = Task.order("finish_time ASC")
+          @order_by = "finish_time"
+          @order_time = "asc"
+        end
+      end
+    end
+  end
+
+  def oerder
+    if params["order"] == "desc"
+      @tasks = Task.order("created_at desc")
+    else
+      @tasks = Task.order("created_at asc")
+    end
+
+    render "index"
   end
 
   def new
