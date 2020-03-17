@@ -28,6 +28,31 @@ RSpec.describe TasksController, type: :controller do
       end
     end
 
+    context "order by priority" do
+      context "order by desc" do
+        it "assigns @tasks" do
+          task1 = create(:task)
+          task2 = create(:task)
+          task2.update(priority: 2)
+
+          get :index, params: { order_by: "priority", order_time: "desc" }
+
+          expect(assigns[:tasks]).to eq([task2, task1])
+        end
+      end
+      context "order by asc" do
+        it "assigns @tasks" do
+          task1 = create(:task)
+          task2 = create(:task)
+          task2.update(priority: 2)
+
+          get :index, params: { order_by: "priority", order_time: "asc" }
+
+          expect(assigns[:tasks]).to eq([task1, task2])
+        end
+      end
+    end
+
     context "order by created_at" do
       context "order by desc" do
         it "assigns @tasks" do

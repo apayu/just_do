@@ -5,6 +5,7 @@ class TasksController < ApplicationController
     @order_by = params["order_by"] || :created_at
     @order_time = params["order_time"] || :created_at
     @state = params["state"] || "pending"
+    @priority = params["priority"] || 0
     @q = params["q"] || ""
 
     @tasks = Task.order_task(@order_by, @order_time).ransack(name_cont: @q, state_eq: @state).result
@@ -47,7 +48,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :content, :finish_time, :state)
+    params.require(:task).permit(:name, :content, :finish_time, :state, :priority)
   end
 end
 
