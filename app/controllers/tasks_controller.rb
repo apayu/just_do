@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :authorized, except:[:index]
   before_action :find_task, only: [:edit, :update, :destroy]
 
   def index
