@@ -8,7 +8,7 @@ class TasksController < ApplicationController
     @priority = params["priority"] || 0
     @q = params["q"] || ""
 
-    @tasks = Task.order_task(@order_by, @order_time).ransack(name_cont: @q, state_eq: @state).result
+    @tasks = Task.order_task(@order_by, @order_time).ransack(name_cont: @q, state_eq: @state).result.page params[:page]
   end
 
   def new
