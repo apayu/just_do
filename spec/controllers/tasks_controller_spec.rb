@@ -2,11 +2,27 @@ require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
   describe "GET index" do
+    context "user login" do
+      it "get user's task" do
+        user = create(:user)
+        task = create(:task)
+        session[:user_id] = user.id
+
+        get :index
+
+        assigns[:tasks].each do |task|
+          expect(task.user.id).to eq(user.id)
+        end
+      end
+    end
+
     context "search" do
       context "by name" do
         it "assigns @tasks" do
-          task1 = create(:task)
-          task2 = create(:task)
+          user = create(:user)
+          task1 = create(:task, user: user)
+          task2 = create(:task, user: user)
+          session[:user_id] = user.id
 
           get :index, params: { q: task2.name }
 
@@ -16,9 +32,10 @@ RSpec.describe TasksController, type: :controller do
 
       context "by state" do
         it "assigns @tasks" do
-          task1 = create(:task)
-          task2 = create(:task)
-
+          user = create(:user)
+          task1 = create(:task, user: user)
+          task2 = create(:task, user: user)
+          session[:user_id] = user.id
           task2.update(state: "finish")
 
           get :index, params: { state: "finish" }
@@ -31,8 +48,10 @@ RSpec.describe TasksController, type: :controller do
     context "order by priority" do
       context "order by desc" do
         it "assigns @tasks" do
-          task1 = create(:task)
-          task2 = create(:task)
+          user = create(:user)
+          task1 = create(:task, user: user)
+          task2 = create(:task, user: user)
+          session[:user_id] = user.id
           task2.update(priority: 2)
 
           get :index, params: { order_by: "priority", order_time: "desc" }
@@ -42,8 +61,10 @@ RSpec.describe TasksController, type: :controller do
       end
       context "order by asc" do
         it "assigns @tasks" do
-          task1 = create(:task)
-          task2 = create(:task)
+          user = create(:user)
+          task1 = create(:task, user: user)
+          task2 = create(:task, user: user)
+          session[:user_id] = user.id
           task2.update(priority: 2)
 
           get :index, params: { order_by: "priority", order_time: "asc" }
@@ -56,8 +77,10 @@ RSpec.describe TasksController, type: :controller do
     context "order by created_at" do
       context "order by desc" do
         it "assigns @tasks" do
-          task1 = create(:task)
-          task2 = create(:task)
+          user = create(:user)
+          task1 = create(:task, user: user)
+          task2 = create(:task, user: user)
+          session[:user_id] = user.id
 
           get :index, params: { order_by: "created_at", order_time: "desc" }
 
@@ -66,8 +89,10 @@ RSpec.describe TasksController, type: :controller do
       end
       context "order by asc" do
         it "assigns @tasks" do
-          task1 = create(:task)
-          task2 = create(:task)
+          user =  create(:user)
+          task1 = create(:task, user: user)
+          task2 = create(:task, user: user)
+          session[:user_id] = user.id
 
           get :index, params: { order_by: "created_at", order_time: "asc" }
 
@@ -79,8 +104,10 @@ RSpec.describe TasksController, type: :controller do
     context "order by finish_time" do
       context "order by desc" do
         it "assigns @tasks" do
-          task1 = create(:task)
-          task2 = create(:task)
+          user = create(:user)
+          task1 = create(:task, user: user)
+          task2 = create(:task, user: user)
+          session[:user_id] = user.id
           task2.update(finish_time: DateTime.now)
 
           get :index, params: { order_by: "finish_time", order_time: "desc" }
@@ -88,10 +115,13 @@ RSpec.describe TasksController, type: :controller do
           expect(assigns[:tasks]).to eq([task2, task1])
         end
       end
+
       context "order by asc" do
         it "assigns @tasks" do
-          task1 = create(:task)
-          task2 = create(:task)
+          user = create(:user)
+          task1 = create(:task, user: user)
+          task2 = create(:task, user: user)
+          session[:user_id] = user.id
           task2.update(finish_time: DateTime.now)
 
           get :index, params: { order_by: "finish_time", order_time: "asc" }
