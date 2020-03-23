@@ -163,11 +163,11 @@ RSpec.describe TasksController, type: :controller do
     end
 
     context "when user not loging" do
-      it "redirect to page index" do
+      it "redirect to login page" do
         user = create(:user)
         task = build(:task)
         get :new
-        expect(response).to redirect_to tasks_path
+        expect(response).to redirect_to login_path
       end
     end
   end
@@ -201,11 +201,11 @@ RSpec.describe TasksController, type: :controller do
     end
 
     context "when user not login" do
-      it "redirect to page index" do
+      it "redirect to login page" do
         user = create(:user)
         task = create(:task)
         post :create, params: { :task => attributes_for(:task)}
-        expect(response).to redirect_to tasks_path
+        expect(response).to redirect_to login_path
       end
     end
   end
@@ -230,11 +230,11 @@ RSpec.describe TasksController, type: :controller do
     end
 
     context "when user not login" do
-      it "redirect to tasks_path" do
+      it "redirect to login page" do
         user = create(:user)
         task = create(:task)
         get :edit, params: { :id => task.id }
-        expect(response).to redirect_to tasks_path
+        expect(response).to redirect_to login_path
       end
     end
   end
@@ -259,11 +259,11 @@ RSpec.describe TasksController, type: :controller do
       end
     end
     context "when user not login" do
-      it "redirect to index" do
+      it "redirect to login page" do
         user = create(:user)
         task = create(:task)
         put :update, params: { id: task.id, task: { name: "321", content: "789"}}
-        expect(response).to redirect_to tasks_path
+        expect(response).to redirect_to login_path
       end
     end
   end
