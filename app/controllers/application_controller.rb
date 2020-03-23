@@ -13,4 +13,5 @@ class ApplicationController < ActionController::Base
   def authorized
     redirect_to tasks_path unless logged_in?
   end
+
 end

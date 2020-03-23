@@ -3,7 +3,6 @@ class Task < ApplicationRecord
   belongs_to :user
   validates :name, presence: true
 
-
   def self.order_task(order_by = :created_at, order_time = :desc)
     sort_hash = {
       created_at: { desc: "created_at desc", asc: "created_at asc" },
