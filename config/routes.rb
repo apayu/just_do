@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create]
   namespace :admin, path: "heyman" do
-    resources :users
+    resources :users do
+      resources :tasks, only: [:index]
+    end
   end
 
   get 'login', to: 'sessions#new'
