@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  before_action :authorized
   before_action :find_user, only: [:edit, :update, :destroy]
   before_action :check_admin
 
@@ -32,8 +33,11 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    redirect_to admin_users_path
+    if @user.destroy
+      redirect_to admin_users_path
+    else
+      redirect_to admin_users_path, notice: I18n.t("last_admin")
+    end
   end
 
   private

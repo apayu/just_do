@@ -6,4 +6,10 @@
   <%= f.collection_select :role_ids, Role.all, :id, :name %>
   <%= f.submit " 編輯" %>
 <% end  %>
-
+<% if @user.errors.any? %>
+  <% @user.errors.full_messages.each do |msg| %>
+    <div>
+      <%= I18n.t(msg) %>
+    </div>
+  <% end %>
+<% end %>

@@ -7,6 +7,7 @@ zh-TW:
   delete_success: 刪除成功
   edit_success: 修改成功
   not_admin: 權限不足
+  last_admin: 這是最後一個管理者!
   pending: "待處理"
   processing: "進行中"
   finish: "完成"
