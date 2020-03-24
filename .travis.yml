@@ -8,6 +8,9 @@ cache:
     - node_modules
 install:
   - bundle install
+  - yarn add bootstrap
+  - yarn add jquery
+  - yarn add popper.js
 services:
   - postgresql
 script:
