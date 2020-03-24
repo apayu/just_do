@@ -1,0 +1,4 @@
+<h1><%= @user.user_name %> 的任務列表</h1>
+<% @user.tasks.each do |task| %>
+  <%= task.name %>
+<% end %>

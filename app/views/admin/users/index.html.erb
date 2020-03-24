@@ -1,0 +1,12 @@
+<h1>使用者列表</h1>
+<%= link_to "新增使用者", new_admin_user_path %>
+<% @users.each do |user| %>
+  <div>
+  <%= user.user_name %>
+  <%= user.email %>
+  任務數量: <%= user.tasks.size %>
+  <%= link_to "任務列表", admin_user_tasks_path(user) %>
+  <%= link_to "修改", edit_admin_user_path(user) %>
+  <%= link_to "刪除", admin_user_path(user), method: :delete %>
+  </div>
+<% end  %>
