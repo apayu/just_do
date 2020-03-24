@@ -17,6 +17,9 @@
         <span><%= link_to "修改", edit_task_path(task) %><%= link_to "刪除", task_path(task), method: "delete", data: { confirm: "確定刪除?"} %></span>
         <span class="badge badge-primary"><%= I18n.t(task.state) %></span>
         <span class="badge badge-primary"><%= I18n.t(task.priority) %></span>
+        <% task.tag_list.split(",").each do |tag| %>
+          <span class="badge badge-primary"><%= tag %></span>
+        <% end %>
       </div>
     </div>
   <% end %>

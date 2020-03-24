@@ -1,5 +1,14 @@
 require "faker"
 FactoryBot.define do
+  factory :tagging do
+    tag { nil }
+    post { nil }
+  end
+
+  factory :tag do
+    name { "MyString" }
+  end
+
   factory :role do
   end
 
