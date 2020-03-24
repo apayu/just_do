@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   resources :tasks
 
   resources :users, only: [:new, :create]
+  namespace :admin, path: "heyman" do
+    resources :users
+  end
 
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
