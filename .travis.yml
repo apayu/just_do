@@ -17,8 +17,6 @@ services:
 before_script:
   - bundle exec rake db:create db:test:prepare
 script:
-  - yarn lint
-  - yarn test
   - bundle exec rspec spec
 after_success:
   - bundle exec rake assets:precompile
