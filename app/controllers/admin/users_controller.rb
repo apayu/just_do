@@ -1,5 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :find_user, only: [:edit, :update, :destroy]
+  before_action :check_admin
 
   def index
     @users = User.includes(:tasks)
@@ -42,6 +43,14 @@ class Admin::UsersController < ApplicationController
 
   def find_user
     @user = User.find_by(id: params[:id])
+  end
+
+  def check_admin
+    if logged_in?
+      unless current_user.has_role? :admin
+        redirect_to tasks_path, notice: I18n.t("not_admin")
+      end
+    end
   end
 end
 
