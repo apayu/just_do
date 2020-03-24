@@ -13,4 +13,7 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
   delete 'session', to: 'sessions#destroy'
+
+  get '/404', to: "errors#not_found"
+  get '/500', to: "errors#internal_error"
 end
