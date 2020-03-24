@@ -11,7 +11,7 @@ class TasksController < ApplicationController
 
     user_id = logged_in? ? current_user.id : nil
 
-    @tasks = Task.where(user_id: user_id).order_task(@order_by, @order_time).ransack(name_cont: @q, state_eq: @state).result.page params[:page]
+    @tasks = Task.where(user_id: user_id).order_task(@order_by, @order_time).ransack(name_or_tags_name_cont: @q, state_eq: @state).result.group(:id).page params[:page]
   end
 
   def new
