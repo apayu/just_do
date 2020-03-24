@@ -2,6 +2,8 @@
 <%= form_for [:admin, @user] do |f| %>
   <%= f.label :user_name %>
   <%= f.text_field :user_name %>
+  <%= f.label :roles, "角色" %>
+  <%= f.collection_select :role_ids, Role.all, :id, :name %>
   <%= f.submit " 編輯" %>
 <% end  %>
 
