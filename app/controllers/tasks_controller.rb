@@ -1,13 +1,17 @@
 class TasksController < ApplicationController
+  before_action :authorized, except:[:index]
   before_action :find_task, only: [:edit, :update, :destroy]
 
   def index
     @order_by = params["order_by"] || :created_at
     @order_time = params["order_time"] || :created_at
     @state = params["state"] || "pending"
+    @priority = params["priority"] || 0
     @q = params["q"] || ""
 
-    @tasks = Task.order_task(@order_by, @order_time).ransack(name_cont: @q, state_eq: @state).result
+    user_id = logged_in? ? current_user.id : nil
+
+    @tasks = Task.where(user_id: user_id).order_task(@order_by, @order_time).ransack(name_cont: @q, state_eq: @state).result.page params[:page]
   end
 
   def new
@@ -16,7 +20,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-
+    @task.user_id = current_user.id
     if @task.save
       redirect_to tasks_path, notice: I18n.t("create_success")
     else
@@ -47,7 +51,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :content, :finish_time, :state)
+    params.require(:task).permit(:name, :content, :finish_time, :state, :priority)
   end
 end
 

@@ -7,6 +7,8 @@
   <%= f.text_field :finish_time %>
   <%= f.label :state, "狀態" %>
   <%= f.select :state, [["待處理", "pending"], ["進行中", "processing"], ["完成", "finish"]] %>
+  <%= f.label :priority, "優先順序" %>
+  <%= f.select :priority, [["低", 0], ["中", 1], ["高", 2]] %>
   <%= f.submit "送出" %>
 <% end %>
 <% if task.errors.any? %>

@@ -1,10 +1,22 @@
 language: ruby
 rvm:
 - 2.6.3
-install: bundle install
+cache:
+  bundle: true
+  yarn: true
+  directories:
+    - node_modules
+install:
+  - bundle install
+  - nvm install node
+  - node -v
+  - npm i -g yarn
+  - yarn install
 services:
   - postgresql
+before_script:
+  - bundle exec rake db:create db:test:prepare
 script:
-  - bundle exec rake db:migrate:reset RAILS_ENV=test
-  - bundle exec rspec
-
+  - bundle exec rspec spec
+after_success:
+  - bundle exec rake assets:precompile
