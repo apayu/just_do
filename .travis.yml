@@ -14,7 +14,11 @@ cache:
   - yarn install
 services:
   - postgresql
+before_script:
+  - cp config/database.yml{.sample,}
+  - bundle exec rake db:create db:test:prepare
 script:
-  - bundle exec rake db:migrate:reset RAILS_ENV=test
-  - bundle exec rspec
-
+  - yarn test
+  - bundle exec rspec spec
+after_success:
+  - bundle exec rake assets:precompile
