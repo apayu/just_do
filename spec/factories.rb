@@ -1,7 +1,6 @@
 require "faker"
 FactoryBot.define do
   factory :role do
-    
   end
 
   factory :user do

@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_secure_password
   has_many :tasks, dependent: :destroy
   after_create :assign_default_role
-  before_save :check_last_admin
+  before_update :check_last_admin
   before_destroy :destroy_check_last_admin
 
   private
