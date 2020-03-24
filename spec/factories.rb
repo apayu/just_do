@@ -1,5 +1,9 @@
 require "faker"
 FactoryBot.define do
+  factory :role do
+    
+  end
+
   factory :user do
     user_name { "apa" }
     email { "123@gmail.com" }
