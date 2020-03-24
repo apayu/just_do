@@ -1,6 +1,11 @@
 language: ruby
 rvm:
 - 2.6.3
+cache:
+  bundle: true
+  yarn: true
+  directories:
+    - node_modules
 install:
   - bundle install
 services:
