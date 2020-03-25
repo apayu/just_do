@@ -11,6 +11,8 @@ zh-TW:
   pending: "待處理"
   processing: "進行中"
   finish: "完成"
+  admin: "管理員"
+  general: "一般使用者"
   "0": "低"
   "1": "中"
   "2": "高"

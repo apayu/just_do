@@ -1,5 +1,5 @@
 <!-- Page Content -->
-<div class="container">
+<div class="container mt-3">
   <%= form_tag("/", method: "get") do %>
     <%= select_tag(:order_by, options_for_select([["任務建立時間", "created_at"], ["任務結束時間", "finish_time"], ["優先順序", "priority"]], @order_by)) %>
     <%= select_tag(:order_time, options_for_select([["最新/最高", "desc"], ["最舊/最低", "asc"]], @order_time)) %>
@@ -8,22 +8,23 @@
     <%= text_field_tag(:q, @q) %>
     <%= submit_tag("尋找", class: "btn btn-info") %>
   <% end %>
+  <div class="text-info"><%= flash[:notice] %></div>
   <% @tasks.each do |task| %>
     <div class="card">
       <h5 class="card-header"><%= task.name %></h5>
       <div class="card-body">
-        <h5 class="card-title"><%= task.finish_time %></h5>
         <p class="card-text"><%= task.content %></p>
         <span><%= link_to "修改", edit_task_path(task) %><%= link_to "刪除", task_path(task), method: "delete", data: { confirm: "確定刪除?"} %></span>
         <span class="badge badge-primary"><%= I18n.t(task.state) %></span>
         <span class="badge badge-primary"><%= I18n.t(task.priority) %></span>
         <% task.tag_list.split(",").each do |tag| %>
-          <span class="badge badge-primary"><%= tag %></span>
+          <span class="badge badge-info"><%= tag %></span>
         <% end %>
+        <span>開始:<%= task.created_at.strftime("%Y/%m/%d") %></span>
+        <span>結束:<%= task.finish_time.strftime("%Y/%m/%d") %></span>
       </div>
     </div>
   <% end %>
   <%= paginate @tasks %>
-  <%= flash[:notice] %>
 </div>
 <!-- /.container -->
