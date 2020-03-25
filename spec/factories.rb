@@ -15,7 +15,7 @@ FactoryBot.define do
   factory :user do
     user_name { "apa" }
     email { "123@gmail.com" }
-    password_digest { "123456" }
+    password { "123456" }
   end
 
   factory :task do
