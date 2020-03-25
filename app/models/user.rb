@@ -2,6 +2,7 @@ class User < ApplicationRecord
   rolify
   has_secure_password
   has_many :tasks, dependent: :destroy
+  has_one_attached :avatar
   after_create :assign_default_role
   before_update :check_last_admin
   before_destroy :destroy_check_last_admin

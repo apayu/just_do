@@ -22,6 +22,11 @@
             <%= link_to "登入", login_path, class: "nav-link"  %>
           <% end %>
         </li>
+        <% if logged_in? %>
+          <li class="nav-item">
+            <%= image_tag current_user.avatar.variant(resize_to_limit: [50, 50]) if current_user.avatar.attached? %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
