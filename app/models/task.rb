@@ -3,6 +3,7 @@ class Task < ApplicationRecord
   belongs_to :user
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
+  has_many_attached :document
   validates :name, presence: true
 
   def tag_list

@@ -22,6 +22,9 @@
         <% end %>
         <span>開始:<%= task.created_at.strftime("%Y/%m/%d") %></span>
         <span>結束:<%= task.finish_time.strftime("%Y/%m/%d") %></span>
+        <% task.document.each do |doc| %>
+          <span><%= link_to doc.filename, rails_blob_path(doc, disposition: "attachment") %></span>
+        <% end %>
       </div>
     </div>
   <% end %>
