@@ -30,6 +30,13 @@
           </div> <!-- .row// -->
         <% end %>
       </article>
+      <% if @user.errors.any? %>
+        <% @user.errors.full_messages.each do |msg| %>
+          <div class="text-danger">
+            <%= msg %>
+          </div>
+        <% end %>
+      <% end %>
       </div> <!-- card.// -->
     </div>
     <div class="col-4">

@@ -6,6 +6,11 @@ class User < ApplicationRecord
   before_update :check_last_admin
   before_destroy :destroy_check_last_admin
 
+  validates :user_name, presence: true
+  validates :email, presence: true
+  validates :password, presence: true
+
+
   private
   def assign_default_role
     self.add_role(:general) if self.roles.blank?

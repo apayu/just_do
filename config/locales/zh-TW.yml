@@ -1,6 +1,10 @@
 zh-TW:
   activerecord:
     attributes:
+      user:
+        password: "密碼"
+        user_name: "暱稱"
+        email: "email"
       task:
         name: "任務名稱"
   create_success: 新增成功
